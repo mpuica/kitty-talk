@@ -2,11 +2,17 @@
 
 // set up ======================
 var express = require('express');
+var mongoose = require('mongoose');
 
-var app     = express();
-var port    = process.env.PORT || 8081;
+// configuration ================
+var config = require('./config/config');
+var port = process.env.PORT || 8081;
 
+var app = express();
 app.use(express.static(__dirname + '/public'));
+
+// db connect ====================
+mongoose.connect(config.mongourl);
 
 // application ===================
 app.get('*', function(req, res) {
