@@ -72,18 +72,18 @@
                 </div>
                 <div class="kt-kitty-crew col-md-12 well">
                     <h4>CREW</h4>
-                    <div data-ng-repeat="crew_kitty in kitty.crew class="kt-kitty-list-container row">
-                    <div class="col-md-2">
-                        <img src="images/{{crew_kitty.image}}" class="img-responsive">
+                    <div data-ng-repeat="crew_kitty in kitty.crew" class="kt-kitty-list-container row">
+                        <div class="col-md-2">
+                            <img src="images/{{crew_kitty.image}}" class="img-responsive">
+                        </div>
+                        <div class="col-md-8">
+                            {{crew_kitty._id}}
+                        </div>
+                        <div class="col-md-2 pull-right">
+                                <span class="kt-action glyphicon glyphicon-minus sign" aria-hidden="true"
+                                      title="Remove kitty from your crew" ng-click="removeKittyFromCrew({{crew_kitty._id}})"></span>
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        {{crew_kitty._id}}
-                    </div>
-                    <div class="col-md-2 pull-right">
-                            <span class="kt-action glyphicon glyphicon-minus sign" aria-hidden="true"
-                                  title="Remove kitty from your crew" ng-click="removeKittyFromCrew({{crew_kitty._id}})"></span>
-                    </div>
-                </div>
                 </div>
                 <div class="kt-kitty-others col-md-12 well">
                     <h4>All kitties</h4>
@@ -112,12 +112,13 @@
             </div>
 
         </div>
-
-        <div class="text-center"  ng-if="!kitty._id">
-            <h2>Please Sign in by uploading your kittiest image.</h2>
-            <p><em>Note: please ensure it's at least 200 x 200 pixels in size.</em></p>
-        </div>
     </div>
+
+    <div class="text-center"  ng-if="!kitty._id">
+        <h2>Please Sign in by uploading your kittiest image.</h2>
+        <p><em>Note: please ensure it's at least 200 x 200 pixels in size.</em></p>
+    </div>
+
 
     <div class="kt-footer row">
         <div class="col-sm-8 col-sm-offset-2 text-center">
