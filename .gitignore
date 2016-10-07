@@ -38,3 +38,6 @@ jspm_packages
 
 # misc
 .idea
+uploads
+public/images
+!.gitkeep
