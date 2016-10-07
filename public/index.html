@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kitty Talk - soon to be meowing</title>
+    <title>Kitty Talk</title>
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -11,15 +11,98 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <!-- shim is needed to support non-HTML5 FormData browsers (IE8-9)-->
+    <script src="js/lib/ng-file-upload-shim.min.js"></script>
+    <script src="js/lib/ng-file-upload.min.js"></script>
     <script src="js/core.js"></script>
 
 </head>
 <body ng-controller="ktController">
 <div class="container">
-    <div class="jumbotron text-center">
-        <h1>Kitty Talk soon to be meowing </h1>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+
+            <div class="navbar-header kt-header" ng-if="!kitty.id">
+                <a class="navbar-brand kt-navbar-brand" href="#">
+                    <img src="img/paw.jpg" class="kt-brand img-responsive">
+                </a>
+                <form name="form" class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="file" ngf-select ng-model="picFile" name="file"
+                               accept="image/*" ngf-max-size="2MB" required
+                               ngf-model-invalid="errorFile" class="form-control">
+                    </div>
+                    <button ng-click="signIn(picFile)"  class="btn btn-default">Sign In</button>
+                </form>
+            </div>
+
+            <div class="navbar-header kt-header" ng-if="kitty.id">
+                <a class="navbar-brand kt-navbar-brand" href="#">
+                    <img src="image/{{kitty.image}}" class="kt-brand img-responsive">
+                </a>
+                <form class="navbar-form navbar-left" method="post" action="/meow" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="text" name="meow" class="form-control meow-input" placeholder="Meow something to the world...">
+                    </div>
+                    <button type="submit" class="btn btn-default">MEOW!</button>
+                </form>
+            </div>
+
+        </div>
+
+    </nav>
+
+    <div class="content" ng-if="!kitty.id" >
+        <div class="jumbotron text-center">
+            <h1>Kitty Talk</h1>
+            beta testing
+        </div>
+
+        <div class="text-center">
+            <h2>Please Sign in by uploading your kittiest image.</h2>
+            <p><em>Note: please ensure it's at least 200 x 200 pixels in size.</em></p>
+        </div>
     </div>
-    <div class="footer row">
+
+    <div class="content" ng-if="kitty.id" >
+        <div class="row">
+            <div class="kt-kitty-profile-container col-md-4">
+                <div class="row">
+                    <div class="kt-kitty-profile col-md-12">
+                        <h2>Profile</h2>
+                        <img src="{{kitty.image}}" class="img-resposive">
+                    </div>
+                    <div class="kt-kitty-crew col-md-12">
+                        <h2>CREW</h2>
+                        <div data-ng-repeat="crew_kitty in kitty.crew">
+                            Crew member
+                        </div>
+                    </div>
+                    <div class="kt-kitty-others col-md-12">
+                        <h2>All kitties</h2>
+                        <div data-ng-repeat="all_kitty in all_kitties">
+                            All kitties  kittie
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-meows-container" class="col-md-8">
+                <h2>MEOWS</h2>
+                <div data-ng-repeat="meow in kitty.meows">
+                    All meows
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center">
+            <h2>Please Sign in by uploading your kittiest image.</h2>
+            <p><em>Note: please ensure it's at least 200 x 200 pixels in size.</em></p>
+        </div>
+    </div>
+
+    <div class="kt-footer row">
         <div class="col-sm-8 col-sm-offset-2 text-center">
             Foo, boo, moo!
         </div>

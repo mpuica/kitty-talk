@@ -2,9 +2,24 @@ html {
     overflow-y:scroll;
 }
 body {
-    padding-top:50px;
+    padding-top:0;
 }
 
-.footer{
+.kt-header{
+    min-height:64px;
+}
+
+.kt-navbar-brand {
+    padding: 0;
+}
+
+.kt-brand {
+    border-radius: 10px;
+}
+
+.kt-footer{
     margin-top: 30px;
+}
+
+.kt-meow-input {
 }
