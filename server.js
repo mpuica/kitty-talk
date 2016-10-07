@@ -14,7 +14,7 @@ var app = express();
 app.use(express.static(__dirname + '/public'));
 
 // db connect ====================
-mongoose.connect(config.mongourl);
+mongoose.connect(config.mongourl[app.settings.env]);
 
 // routes ========================
 app.use('/', routes);

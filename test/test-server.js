@@ -1,8 +1,18 @@
+process.env.NODE_ENV = 'test';
+
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var server = require('../server');
 var expect = chai.expect();
 var should = chai.should();
+
+//we load the models for testing
+var Kitty = require("../app/models/kitty");
+var Meow = require("../app/models/meow");
+
+//we load the modules for testing
+var Kitties = require("../app/modules/kitties");
+var Meows = require("../app/modules/meows");
 
 chai.use(chaiHttp);
 
