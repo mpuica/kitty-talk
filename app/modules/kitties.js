@@ -94,27 +94,6 @@ var Kitties = ({
     },
 
     /**
-     * method to fetch the signed in kitty page
-     *
-     * @param req
-     * @param res
-     * @param id
-     *
-     * @returns {*}
-     */
-    findKittyPage : function (req, res, id) {
-
-        KittySchema.findById(id, function (err, kitty) {
-            if(err) {
-                return res.json({'ERROR': err});
-            } else {
-                return res.json({kitty : kitty});
-            }
-        });
-
-    },
-
-    /**
      * method to fetch the selected kitty page
      *
      * @param req

@@ -73,21 +73,6 @@ describe("Meow Model", function() {
 
 describe("Kitty Model", function() {
 
-    describe("Return logged Kitty homepage", function() {
-        it("should return a kitty object", function(done) {
-            chai.request(server)
-                .get('/kitty')
-                .end(function(err, res){
-                    res.should.have.status(200);
-                    res.should.be.json;
-                    res.body.should.be.a('object');
-                    res.body.should.have.property('kitty');
-                    res.body.should.have.property('_id');
-                    done();
-                });
-        });
-    });
-
     describe("Return a Kitty page", function() {
         it("should return a kitty object", function(done) {
             var testId = 1;
