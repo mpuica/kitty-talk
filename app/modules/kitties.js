@@ -112,18 +112,6 @@ var Kitties = ({
             }
         });
     },
-    /**
-     * method to fetch the list of crew Kitties
-     *
-     * @param req
-     * @param res
-     *
-     * @returns {*}
-     */
-    findCrewKitties : function (req, res) {
-
-        return res.json({});
-    },
 
     /**
      * method to fetch all the Kitties
@@ -138,7 +126,7 @@ var Kitties = ({
             if(err) {
                 res.json({'ERROR': err});
             } else {
-                res.json({all_kitties : kitties});
+                res.json({kitties : kitties});
             }
         });
         return this;

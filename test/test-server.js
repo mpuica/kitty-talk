@@ -164,20 +164,6 @@ describe("Kitty-Talk Testing", function() {
             });
         });
 
-        describe("Return crew Kitties", function() {
-            it("should return an array of kitty objects", function(done) {
-                chai.request(server)
-                    .get('/kitty/crew')
-                    .end(function(err, res){
-                        res.should.have.status(200);
-                        res.should.be.json;
-                        res.body.should.be.a('array');
-                        //@todo : add here test for one of the items to be a kitty object
-                        done();
-                    });
-            });
-        });
-
         describe("Add a Kitty to crew", function() {
             //@todo : not sure yet if use a post or get
         });

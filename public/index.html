@@ -68,18 +68,36 @@
             <div class="kt-kitty-profile-container col-md-4">
                 <div class="kt-kitty-profile col-md-12 well">
                     <h4>Profile {{kitty._id}}</h4>
-                    <img src="images/{{kitty.image}}" class="img-resposive">
+                    <img src="images/{{kitty.image}}" class="img-responsive">
                 </div>
                 <div class="kt-kitty-crew col-md-12 well">
                     <h4>CREW</h4>
-                    <div data-ng-repeat="crew_kitty in kitty.crew">
-                        Crew member
+                    <div data-ng-repeat="crew_kitty in kitty.crew class="kt-kitty-list-container row">
+                    <div class="col-md-2">
+                        <img src="images/{{crew_kitty.image}}" class="img-responsive">
                     </div>
+                    <div class="col-md-8">
+                        {{crew_kitty._id}}
+                    </div>
+                    <div class="col-md-2 pull-right">
+                            <span class="kt-action glyphicon glyphicon-minus sign" aria-hidden="true"
+                                  title="Remove kitty from your crew" ng-click="removeKittyFromCrew({{crew_kitty._id}})"></span>
+                    </div>
+                </div>
                 </div>
                 <div class="kt-kitty-others col-md-12 well">
                     <h4>All kitties</h4>
-                    <div data-ng-repeat="all_kitty in all_kitties">
-                        All kitties  kittie
+                    <div data-ng-repeat="all_kitty in kitties" class="kt-kitty-list-container row">
+                        <div class="col-md-2">
+                            <img src="images/{{all_kitty.image}}" class="img-responsive">
+                        </div>
+                        <div class="col-md-8">
+                            {{all_kitty._id}}
+                        </div>
+                        <div class="col-md-2 pull-right">
+                            <span class="kt-action glyphicon glyphicon-plus sign" aria-hidden="true"
+                                  title="Add kitty to your crew" ng-click="addKittyToCrew({{all_kitty._id}})"></span>
+                        </div>
                     </div>
                 </div>
             </div>

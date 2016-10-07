@@ -15,10 +15,9 @@ router.post('/meows', Meows.addMeow);
 router.get('/meow/:id', Meows.findMeowById);
 
 router.get('/kitty/:id', Kitties.findKittyById);
-router.get('/kitty/crew', Kitties.findCrewKitties);
-router.get('/kitty/all', Kitties.findAllKitties);
-router.get('/kitty/add/:id', Kitties.addKittyToCrew);
-router.get('/kitty/remove/:id', Kitties.removeKittyFromCrew);
+router.get('/kitties', Kitties.findAllKitties);
+router.get('/kitty/:id/add', Kitties.addKittyToCrew);
+router.get('/kitty/:id/remove', Kitties.removeKittyFromCrew);
 
 module.exports = router;
 

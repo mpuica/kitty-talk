@@ -30,3 +30,12 @@ h4 {
 
 .kt-meow-input {
 }
+
+.kt-kitty-list-container {
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+.kt-action{
+    cursor: pointer;
+}
