@@ -38,7 +38,7 @@
             </div>
 
             <div class="navbar-header kt-header" ng-if="kitty._id">
-                <a class="navbar-brand kt-navbar-brand" href="#">
+                <a class="navbar-brand kt-navbar-brand" href="" ng-click="viewKitty(kitty._id)" >
                     <img src="images/{{kitty.image}}" class="kt-brand img-responsive">
                 </a>
                 <form class="navbar-form navbar-left" method="post" action="/meow" enctype="multipart/form-data">
@@ -66,35 +66,31 @@
     <div class="content" ng-if="kitty._id" >
         <div class="row">
             <div class="kt-kitty-profile-container col-md-4">
-                <div class="row">
-                    <div class="kt-kitty-profile col-md-12 well">
-                        <h4>Profile {{kitty._id}}</h4>
-                        <img src="images/{{kitty.image}}" class="img-resposive">
+                <div class="kt-kitty-profile col-md-12 well">
+                    <h4>Profile {{kitty._id}}</h4>
+                    <img src="images/{{kitty.image}}" class="img-resposive">
+                </div>
+                <div class="kt-kitty-crew col-md-12 well">
+                    <h4>CREW</h4>
+                    <div data-ng-repeat="crew_kitty in kitty.crew">
+                        Crew member
                     </div>
-                    <div class="kt-kitty-crew col-md-12 well">
-                        <h4>CREW</h4>
-                        <div data-ng-repeat="crew_kitty in kitty.crew">
-                            Crew member
-                        </div>
-                    </div>
-                    <div class="kt-kitty-others col-md-12 well">
-                        <h4>All kitties</h4>
-                        <div data-ng-repeat="all_kitty in all_kitties">
-                            All kitties  kittie
-                        </div>
+                </div>
+                <div class="kt-kitty-others col-md-12 well">
+                    <h4>All kitties</h4>
+                    <div data-ng-repeat="all_kitty in all_kitties">
+                        All kitties  kittie
                     </div>
                 </div>
             </div>
+
             <div class="col-md-8">
-                <div class="row">
-                    <div class="kt-meows-container col-md-12 well">
-                        <h3>MEOWS</h3>
-                        <div data-ng-repeat="meow in kitty.meows">
-                            All meows
-                        </div>
+                <div class="kt-meows-container col-md-12 well">
+                    <h3>MEOWS</h3>
+                    <div data-ng-repeat="meow in kitty.meows">
+                        All meows
                     </div>
                 </div>
-
             </div>
 
         </div>

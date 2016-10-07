@@ -12,10 +12,25 @@
 
         $scope.addMeowData = {};
 
-        $scope.findKittyPage = function () {
-           //todo:
+        /**
+         * method to fetch a kitty page
+         */
+        $scope.viewKitty = function (id) {
+            console.log('find kitty');
+            $http.get('/kitty/' + id)
+                .success(function(response) {
+                    $scope.kitty = $scope.kitty = response.data.kitty;
+                })
+                .error(function(response) {
+                    console.log('Error: ' + response.status);
+                    $scope.errorMsg = response.status + ': ' + response.data;
+                });
         };
 
+        /**
+         * method to sign in by uploading a kitty image
+         * @param file
+         */
         $scope.signIn = function(file) {
             file.upload = Upload.upload({
                 url: '/signin',
@@ -36,11 +51,8 @@
                 if (response.status > 0)
                     $scope.errorMsg = response.status + ': ' + response.data;
             });
-        },
+        };
 
-        $scope.viewKitty = function() {
-
-        }
     }]);
 
 })(window.angular);
