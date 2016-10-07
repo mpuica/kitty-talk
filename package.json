@@ -4,8 +4,15 @@
   "description": "meow",
   "main": "server.js",
   "dependencies": {
+    "async": "^1.4.2",
+    "busboy": "^0.2.9",
+    "connect-busboy": "0.0.2",
+    "easyimage": "^2.0.3",
     "express": "latest",
-    "mongoose": "latest"
+    "lodash": "^3.10.1",
+    "mongoose": "latest",
+    "multer": "^1.0.3",
+    "ng-file-upload": "^12.2.12"
   },
   "devDependencies": {
     "chai": "^3.5.0",
