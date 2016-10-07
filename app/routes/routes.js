@@ -17,7 +17,7 @@ router.get('/meow/:id', Meows.findMeowById);
 router.get('/kitty', Kitties.findKittyPage);
 router.get('/kitty/:id', Kitties.findKittyById);
 router.get('/kitty/crew', Kitties.findCrewKitties);
-router.get('/kitty/others', Kitties.findNonCrewKitties);
+router.get('/kitty/all', Kitties.findAllKitties);
 router.get('/kitty/add/:id', Kitties.addKittyToCrew);
 router.get('/kitty/remove/:id', Kitties.removeKittyFromCrew);
 

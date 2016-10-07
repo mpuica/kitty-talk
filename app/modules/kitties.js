@@ -82,35 +82,109 @@ var Kitties = ({
             ],
             function(err){
                 console.log('callback');
-                console.log(kitty_id);
                 // If an error occurred somewhere along the way, render the error page.
                 if (err){
                     console.log('error');
                     return res.json({message : err.message});
                 }
                 // Otherwise render the logged in Kitty page.
-                console.log(res);
-                return res.json({filename: filename});
+                return Kitties.findKittyById(req, res, kitty_id);
             }
         );
     },
 
-    findKittyPage : function () {
+    /**
+     * method to fetch the signed in kitty page
+     *
+     * @param req
+     * @param res
+     * @param id
+     *
+     * @returns {*}
+     */
+    findKittyPage : function (req, res, id) {
+
+        KittySchema.findById(id, function (err, kitty) {
+            if(err) {
+                return res.json({'ERROR': err});
+            } else {
+                return res.json({kitty : kitty});
+            }
+        });
+
+    },
+
+    /**
+     * method to fetch the selected kitty page
+     *
+     * @param req
+     * @param res
+     * @param id
+     *
+     * @returns {*}
+     */
+    findKittyById : function (req, res, id) {
+
+        KittySchema.findById(id, function (err, kitty) {
+            if(err) {
+                return res.json({'ERROR': err});
+            } else {
+                return res.json({kitty : kitty});
+            }
+        });
+    },
+    /**
+     * method to fetch the list of crew Kitties
+     *
+     * @param req
+     * @param res
+     *
+     * @returns {*}
+     */
+    findCrewKitties : function (req, res) {
+
+        return res.json({});
+    },
+
+    /**
+     * method to fetch all the Kitties
+     *
+     * @param req
+     * @param res
+     *
+     * @returns {*}
+     */
+    findAllKitties : function (req, res) {
+        KittySchema.find(function(err, kitties) {
+            if(err) {
+                res.json({'ERROR': err});
+            } else {
+                res.json({all_kitties : kitties});
+            }
+        });
         return this;
     },
-    findKittyById : function () {
+
+    /**
+     * method to add a kitty to signed in kitty crew
+     *
+     * @param req
+     * @param res
+     *
+     * @returns {*}
+     */
+    addKittyToCrew : function (req, res) {
         return this;
     },
-    findCrewKitties : function () {
-        return this;
-    },
-    findNonCrewKitties : function () {
-        return this;
-    },
-    addKittyToCrew : function () {
-        return this;
-    },
-    removeKittyFromCrew : function () {
+    /**
+     * method to remove a kitty from signed in kitty crew
+     *
+     * @param req
+     * @param res
+     *
+     * @returns {*}
+     */
+    removeKittyFromCrew : function (req, res) {
         return this;
     }
 });

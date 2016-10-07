@@ -25,12 +25,21 @@
             file.upload.then(function (response) {
                 $timeout(function () {
                     // @todo: upload worked, use the response to generate Kitty page
+                    if(response.data.kitty){
+                        $scope.kitty = response.data.kitty;
+                        $scope.$apply();
+                    }
+                    console.log(response.data.kitty);
                 });
             }, function (response) {
                 console.log(response);
                 if (response.status > 0)
                     $scope.errorMsg = response.status + ': ' + response.data;
             });
+        },
+
+        $scope.viewKitty = function() {
+
         }
     }]);
 

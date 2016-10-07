@@ -104,10 +104,10 @@ describe("Kitty Model", function() {
         });
     });
 
-    describe("Return non-crew Kitties", function() {
+    describe("Return all Kitties", function() {
         it("should return an array of kitty objects", function(done) {
             chai.request(server)
-                .get('/kitty/others')
+                .get('/kitty/all')
                 .end(function(err, res){
                     res.should.have.status(200);
                     res.should.be.json;

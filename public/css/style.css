@@ -5,12 +5,19 @@ body {
     padding-top:0;
 }
 
+h4 {
+    background-color: bisque;
+    padding: 5px;
+}
+
 .kt-header{
     min-height:64px;
 }
 
 .kt-navbar-brand {
     padding: 0;
+    width: 64px;
+    height: 64px;
 }
 
 .kt-brand {
