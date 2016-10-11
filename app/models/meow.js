@@ -9,6 +9,7 @@ var MeowSchema = new Schema();
 MeowSchema.add({
     //_id: ObjectId,
     kitty: {type: mongoose.Schema.Types.ObjectId, ref: 'kitty'},
+    date: { type : Date, default: Date.now },
     text: String
 });
 
