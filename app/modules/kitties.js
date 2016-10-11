@@ -97,19 +97,31 @@ var Kitties = ({
             }
         );
     },
-
+    /**
+     * method to fetch the selected kitty page from the request
+     *
+     * @param req
+     * @param res
+     *
+     * @returns {*}
+     */
+    findKitty : function (req, res) {
+        var kitty_id = req.params.id;
+        console.log('find kitty from request : ' + kitty_id);
+        return Kitties.findKittyById(req, res, kitty_id);
+    },
     /**
      * method to fetch the selected kitty page
      *
      * @param req
      * @param res
-     * @param id
+     * @param kitty_id
      *
      * @returns {*}
      */
-    findKittyById : function (req, res, id) {
-        console.log('find kitty by id : ' + id);
-        KittySchema.findById(id, function (err, kitty) {
+    findKittyById : function (req, res, kitty_id) {
+        console.log('find kitty by id : ' + kitty_id);
+        KittySchema.findById(kitty_id, function (err, kitty) {
             if(err) {
                 return res.json({'ERROR': err});
             }
@@ -143,24 +155,6 @@ var Kitties = ({
     },
 
     /**
-     * method to fetch crew Kitties
-     *
-     * @param req
-     * @param res
-     *
-     * @returns {*}
-     */
-    findCrewKitties : function (req, res) {
-        KittySchema.find(function(err, kitties) {
-            if(err) {
-                res.json({'ERROR': err});
-            } else {
-                res.json({kitties : kitties});
-            }
-        });
-        return this;
-    },
-    /**
      * method to add a kitty to signed in kitty crew
      *
      * @param req
@@ -170,14 +164,14 @@ var Kitties = ({
      */
     addKittyToCrew : function (req, res) {
         var auth_kitty_id = req.kittySession.auth_kitty;
-        var crew_kitty_id = req.param('id');
+        var crew_kitty_id = req.params.id;
         KittySchema.findById(auth_kitty_id, function (err, kitty) {
             if(err) {
                 console.log('error');
                 return res.json({'ERROR': err});
             }
             kitty.crew.push(crew_kitty_id);
-            kitty.save(function(err, doc) {
+            kitty.save(function(err) {
                 if (err){
                     console.log('error');
                     return res.json({message : err.message});
@@ -199,14 +193,14 @@ var Kitties = ({
      */
     removeKittyFromCrew : function (req, res) {
         var auth_kitty_id = req.kittySession.auth_kitty;
-        var crew_kitty_id = req.param('id');
+        var crew_kitty_id = req.params.id;
         KittySchema.findById(auth_kitty_id, function (err, kitty) {
             if(err) {
                 console.log('error');
                 return res.json({'ERROR': err});
             }
-           // @todo: remove
-            kitty.save(function(err, doc) {
+            kitty.crew.remove(crew_kitty_id);
+            kitty.save(function(err) {
                 if (err){
                     console.log('error');
                     return res.json({message : err.message});

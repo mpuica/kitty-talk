@@ -24,7 +24,7 @@
         <div class="container-fluid">
 
             <div class="navbar-header kt-header" ng-if="!kitty._id">
-                <a class="navbar-brand kt-navbar-brand" href="#">
+                <a class="navbar-brand kt-navbar-brand" href="">
                     <img src="img/paw.jpg" class="kt-brand img-responsive">
                 </a>
                 <form name="form" class="navbar-form navbar-left">
@@ -74,7 +74,7 @@
                     <h4>CREW</h4>
                     <div data-ng-repeat="crew_kitty in crew" class="kt-kitty-list-container row">
                         <div class="col-md-2">
-                            <img src="images/{{crew_kitty.image}}" class="img-responsive">
+                            <img src="images/{{crew_kitty.image}}" class="img-responsive kt-action" ng-click="viewKitty(crew_kitty._id)">
                         </div>
                         <div class="col-md-8">
                             {{crew_kitty._id}}
@@ -89,7 +89,7 @@
                     <h4>All kitties</h4>
                     <div data-ng-repeat="all_kitty in kitties" class="kt-kitty-list-container row">
                         <div class="col-md-2">
-                            <img src="images/{{all_kitty.image}}" class="img-responsive">
+                            <img src="images/{{all_kitty.image}}" class="img-responsive kt-action" ng-click="viewKitty(all_kitty._id)">
                         </div>
                         <div class="col-md-8">
                             {{all_kitty._id}}

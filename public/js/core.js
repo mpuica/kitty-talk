@@ -28,7 +28,8 @@
             console.log('find kitty');
             $http.get('/kitty/' + id)
                 .success(function(response) {
-                    $scope.kitty = response.data.kitty;
+                    console.log(response);
+                    $scope.kitty = response.kitty;
                     $scope.crew = response.crew;
                     $scope.viewAllKitties();
                 })
@@ -61,22 +62,6 @@
                 if (response.status > 0)
                     $scope.errorMsg = response.status + ': ' + response.data;
             });
-        };
-
-        /**
-         * method to fetch a list of all kitties
-         */
-        $scope.viewAllKitties = function () {
-            console.log('find all kitties');
-            $http.get('/kitties')
-                .success(function(response) {
-                    console.log(response);
-                    $scope.kitties = response.kitties;
-                })
-                .error(function(response) {
-                    console.log('Error: ' + response.status);
-                    $scope.errorMsg = response.status + ': ' + response.data;
-                });
         };
 
         /**
