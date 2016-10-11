@@ -5,6 +5,7 @@ var async = require('async');
 var multer = require('multer');
 var easyimg = require('easyimage');
 var  _  = require('lodash');
+var session = require('client-sessions');
 
 var KittySchema = require('../models/kitty');
 
@@ -76,6 +77,7 @@ var Kitties = ({
                     });
                     newKitty.save(function(err, doc) {
                         kitty_id = doc._id;
+                        req.kittySession.auth_kitty = kitty_id;
                         return callback();
                     });
                 }
@@ -153,7 +155,7 @@ var Kitties = ({
      */
     removeKittyFromCrew : function (req, res) {
         return this;
-    }
+    },
 });
 
 module.exports = Kitties;
