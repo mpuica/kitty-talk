@@ -72,7 +72,7 @@
                 </div>
                 <div class="kt-kitty-crew col-md-12 well">
                     <h4>CREW</h4>
-                    <div data-ng-repeat="crew_kitty in kitty.crew" class="kt-kitty-list-container row">
+                    <div data-ng-repeat="crew_kitty in crew" class="kt-kitty-list-container row">
                         <div class="col-md-2">
                             <img src="images/{{crew_kitty.image}}" class="img-responsive">
                         </div>
@@ -81,7 +81,7 @@
                         </div>
                         <div class="col-md-2 pull-right">
                                 <span class="kt-action glyphicon glyphicon-minus sign" aria-hidden="true"
-                                      title="Remove kitty from your crew" ng-click="removeKittyFromCrew({{crew_kitty._id}})"></span>
+                                      title="Remove kitty from your crew" ng-click="removeKittyFromCrew(crew_kitty._id)"></span>
                         </div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
             <div class="col-md-8">
                 <div class="kt-meows-container col-md-12 well">
                     <h3>MEOWS</h3>
-                    <div data-ng-repeat="meow in kitty.meows">
+                    <div data-ng-repeat="meow in meows">
                         All meows
                     </div>
                 </div>

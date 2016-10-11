@@ -73,11 +73,14 @@ var Kitties = ({
                 function(callback){
                     //add Kitty to the database
                     var newKitty = new KittySchema({
-                        image: filename
+                        image: filename,
+                        crew : [],
+                        meows: []
                     });
                     newKitty.save(function(err, doc) {
                         kitty_id = doc._id;
                         req.kittySession.auth_kitty = kitty_id;
+                        console.log(req.kittySession);
                         return callback();
                     });
                 }
@@ -105,13 +108,18 @@ var Kitties = ({
      * @returns {*}
      */
     findKittyById : function (req, res, id) {
-
+        console.log('find kitty by id : ' + id);
         KittySchema.findById(id, function (err, kitty) {
             if(err) {
                 return res.json({'ERROR': err});
-            } else {
-                return res.json({kitty : kitty});
             }
+
+            KittySchema.find({'_id': { $in: kitty.crew } }, function(err, crew){
+                if(err) {
+                    return res.json({'ERROR': err});
+                }
+                return res.json({kitty : kitty, crew: crew});
+            });
         });
     },
 
@@ -135,6 +143,24 @@ var Kitties = ({
     },
 
     /**
+     * method to fetch crew Kitties
+     *
+     * @param req
+     * @param res
+     *
+     * @returns {*}
+     */
+    findCrewKitties : function (req, res) {
+        KittySchema.find(function(err, kitties) {
+            if(err) {
+                res.json({'ERROR': err});
+            } else {
+                res.json({kitties : kitties});
+            }
+        });
+        return this;
+    },
+    /**
      * method to add a kitty to signed in kitty crew
      *
      * @param req
@@ -143,10 +169,28 @@ var Kitties = ({
      * @returns {*}
      */
     addKittyToCrew : function (req, res) {
-        return this;
+        var auth_kitty_id = req.kittySession.auth_kitty;
+        var crew_kitty_id = req.param('id');
+        KittySchema.findById(auth_kitty_id, function (err, kitty) {
+            if(err) {
+                console.log('error');
+                return res.json({'ERROR': err});
+            }
+            kitty.crew.push(crew_kitty_id);
+            kitty.save(function(err, doc) {
+                if (err){
+                    console.log('error');
+                    return res.json({message : err.message});
+                }
+                console.log(kitty.crew);
+                return Kitties.findKittyById(req, res, auth_kitty_id);
+            });
+        });
+
     },
+
     /**
-     * method to remove a kitty from signed in kitty crew
+     * method to remove a kitty  from the signed in kitty crew
      *
      * @param req
      * @param res
@@ -154,7 +198,24 @@ var Kitties = ({
      * @returns {*}
      */
     removeKittyFromCrew : function (req, res) {
-        return this;
+        var auth_kitty_id = req.kittySession.auth_kitty;
+        var crew_kitty_id = req.param('id');
+        KittySchema.findById(auth_kitty_id, function (err, kitty) {
+            if(err) {
+                console.log('error');
+                return res.json({'ERROR': err});
+            }
+           // @todo: remove
+            kitty.save(function(err, doc) {
+                if (err){
+                    console.log('error');
+                    return res.json({message : err.message});
+                }
+                console.log(kitty.crew);
+                return Kitties.findKittyById(req, res, auth_kitty_id);
+            });
+        });
+
     },
 });
 

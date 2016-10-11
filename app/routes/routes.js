@@ -16,8 +16,8 @@ router.get('/meow/:id', Meows.findMeowById);
 
 router.get('/kitty/:id', Kitties.findKittyById);
 router.get('/kitties', Kitties.findAllKitties);
-router.get('/kitty/:id/add', Kitties.addKittyToCrew);
-router.get('/kitty/:id/remove', Kitties.removeKittyFromCrew);
+router.get('/crew/add/:id', Kitties.addKittyToCrew);
+router.get('/crew/remove/:id', Kitties.removeKittyFromCrew);
 
 module.exports = router;
 
