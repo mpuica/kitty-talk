@@ -96,7 +96,7 @@
                         </div>
                         <div class="col-md-2 pull-right">
                             <span class="kt-action glyphicon glyphicon-plus sign" aria-hidden="true"
-                                  title="Add kitty to your crew" ng-click="addKittyToCrew({{all_kitty._id}})"></span>
+                                  title="Add kitty to your crew" ng-click="addKittyToCrew(all_kitty._id)"></span>
                         </div>
                     </div>
                 </div>
@@ -113,12 +113,6 @@
 
         </div>
     </div>
-
-    <div class="text-center"  ng-if="!kitty._id">
-        <h2>Please Sign in by uploading your kittiest image.</h2>
-        <p><em>Note: please ensure it's at least 200 x 200 pixels in size.</em></p>
-    </div>
-
 
     <div class="kt-footer row">
         <div class="col-sm-8 col-sm-offset-2 text-center">
