@@ -29,6 +29,7 @@ h4 {
 }
 
 .kt-meow-input {
+    min-width: 320px;
 }
 
 .kt-kitty-list-container {

@@ -20,6 +20,8 @@ describe("Kitty-Talk Testing", function() {
     KittySchema.collection.drop();
     MeowSchema.collection.drop();
 
+    var testKitty = null;
+
     beforeEach(function(done){
         //we add dummy kitties
         var newKitty1 = new KittySchema({
@@ -32,6 +34,7 @@ describe("Kitty-Talk Testing", function() {
             crew: [newKitty1]
         });
         newKitty2.save(function(err, doc) {
+            testKitty = doc._id;
         });
         var newKitty3 = new KittySchema({
             image: 'test3.jpg'
@@ -82,14 +85,13 @@ describe("Kitty-Talk Testing", function() {
 
         describe("Return a Kitty page", function() {
             it("should return a kitty object", function(done) {
-                var testId = 1;
                 chai.request(server)
-                    .get('/kitty/' + testId)
+                    .get('/kitty/' + testKitty)
                     .end(function(err, res){
                         res.should.have.status(200);
                         res.should.be.json;
                         res.body.should.be.a('object');
-                        res.body.should.have.property('kitty');
+                        res.body.should.have.property('image');
                         res.body.should.have.property('_id');
                         done();
                     });
@@ -99,7 +101,7 @@ describe("Kitty-Talk Testing", function() {
         describe("Return all Kitties", function() {
             it("should return an array of kitty objects", function(done) {
                 chai.request(server)
-                    .get('/kitty/all')
+                    .get('/kitties')
                     .end(function(err, res){
                         res.should.have.status(200);
                         res.should.be.json;
@@ -111,7 +113,16 @@ describe("Kitty-Talk Testing", function() {
         });
 
         describe("Add a Kitty to crew", function() {
-            //@todo : not sure yet if use a post or get
+            it("should return an array of kitty objects (crew)", function(done) {
+                chai.request(server)
+                    .get('/crew/add/' + testKitty)
+                    .end(function(err, res){
+                        res.should.have.status(200);
+                        res.should.be.json;
+                        res.body.should.be.a('array');
+                        done();
+                    });
+            });
         });
 
         describe("Remove a Kitty from crew", function() {
@@ -120,28 +131,11 @@ describe("Kitty-Talk Testing", function() {
     });
 
     describe("Meow Model", function() {
-        describe("Return a single meow", function() {
-            var testId =  1;
-            it("should return a Meow object", function(done) {
-                chai.request(server)
-                    .get('/meow/' + testId)
-                    .end(function(err, res){
-                        res.should.have.status(200);
-                        res.should.be.json;
-                        res.body.should.be.a('object');
-                        res.body.should.have.property('kitty');
-                        res.body.should.have.property('text');
-                        res.body.should.have.property('_id');
-                        res.body.should.equal(testId);
-                        done();
-                    });
-            });
-        });
 
         describe("Return kitty meows, including crew meows", function() {
             it("should return an array of meows", function(done) {
                 chai.request(server)
-                    .get('/meows')
+                    .get('/meows/' + testKitty)
                     .end(function(err, res){
                         res.should.have.status(200);
                         res.should.be.json;
@@ -155,8 +149,8 @@ describe("Kitty-Talk Testing", function() {
             it("should add a single meow", function(done) {
                 var testText = 'this is a just a test meow';
                 chai.request(server)
-                    .post('/meow')
-                    .send({'text': testText})
+                    .post('/meows')
+                    .send({'auth_kitty': textKitty, 'text': testText})
                     .end(function(err, res){
                         res.should.have.status(200);
                         res.should.be.json;
