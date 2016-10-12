@@ -78,6 +78,47 @@ describe("Kitty-Talk Testing", function() {
         done();
     });
 
+    describe("Kitty Model", function() {
+
+        describe("Return a Kitty page", function() {
+            it("should return a kitty object", function(done) {
+                var testId = 1;
+                chai.request(server)
+                    .get('/kitty/' + testId)
+                    .end(function(err, res){
+                        res.should.have.status(200);
+                        res.should.be.json;
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('kitty');
+                        res.body.should.have.property('_id');
+                        done();
+                    });
+            });
+        });
+
+        describe("Return all Kitties", function() {
+            it("should return an array of kitty objects", function(done) {
+                chai.request(server)
+                    .get('/kitty/all')
+                    .end(function(err, res){
+                        res.should.have.status(200);
+                        res.should.be.json;
+                        res.body.should.be.a('array');
+                        //@todo : add here test for one of the items to be a kitty object
+                        done();
+                    });
+            });
+        });
+
+        describe("Add a Kitty to crew", function() {
+            //@todo : not sure yet if use a post or get
+        });
+
+        describe("Remove a Kitty from crew", function() {
+            //@todo : not sure yet if use a post or get
+        });
+    });
+
     describe("Meow Model", function() {
         describe("Return a single meow", function() {
             var testId =  1;
@@ -130,47 +171,6 @@ describe("Kitty-Talk Testing", function() {
             });
         });
 
-    });
-
-    describe("Kitty Model", function() {
-
-        describe("Return a Kitty page", function() {
-            it("should return a kitty object", function(done) {
-                var testId = 1;
-                chai.request(server)
-                    .get('/kitty/' + testId)
-                    .end(function(err, res){
-                        res.should.have.status(200);
-                        res.should.be.json;
-                        res.body.should.be.a('object');
-                        res.body.should.have.property('kitty');
-                        res.body.should.have.property('_id');
-                        done();
-                    });
-            });
-        });
-
-        describe("Return all Kitties", function() {
-            it("should return an array of kitty objects", function(done) {
-                chai.request(server)
-                    .get('/kitty/all')
-                    .end(function(err, res){
-                        res.should.have.status(200);
-                        res.should.be.json;
-                        res.body.should.be.a('array');
-                        //@todo : add here test for one of the items to be a kitty object
-                        done();
-                    });
-            });
-        });
-
-        describe("Add a Kitty to crew", function() {
-            //@todo : not sure yet if use a post or get
-        });
-
-        describe("Remove a Kitty from crew", function() {
-            //@todo : not sure yet if use a post or get
-        });
     });
 
 });

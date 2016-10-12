@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var path = require('path');
 var routes = require('./app/routes/routes.js');
 var session = require('client-sessions');
+var bodyParser = require('body-parser');
 
 // configuration ================
 var config = require('./config/config');
@@ -24,6 +25,10 @@ app.use(session({
     duration: 30 * 60 * 1000,
     activeDuration: 5 * 60 * 1000
 }));
+
+// post body parser
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 // routes ========================
 app.use('/', routes);

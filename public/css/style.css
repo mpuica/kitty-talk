@@ -39,3 +39,12 @@ h4 {
 .kt-action{
     cursor: pointer;
 }
+
+.auth-kitty {
+    background-color: khaki;
+}
+
+.kt-meow {
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}

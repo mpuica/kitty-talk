@@ -23,7 +23,7 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
 
-            <div class="navbar-header kt-header" ng-if="!kitty._id">
+            <div class="navbar-header kt-header" ng-if="!auth_kitty._id">
                 <a class="navbar-brand kt-navbar-brand" href="">
                     <img src="img/paw.jpg" class="kt-brand img-responsive">
                 </a>
@@ -37,21 +37,23 @@
                 </form>
             </div>
 
-            <div class="navbar-header kt-header" ng-if="kitty._id">
-                <a class="navbar-brand kt-navbar-brand" href="" ng-click="viewKitty(kitty._id)" >
-                    <img src="images/{{kitty.image}}" class="kt-brand img-responsive">
+            <div class="navbar-header kt-header" ng-if="auth_kitty._id">
+                <a class="navbar-brand kt-navbar-brand" href="" ng-click="viewKitty(auth_kitty._id)" >
+                    <img src="images/{{auth_kitty.image}}" class="kt-brand img-responsive">
                 </a>
-                <form class="navbar-form navbar-left" method="post" action="/meow" enctype="multipart/form-data">
+                <form class="navbar-form navbar-left">
                     <div class="form-group">
-                        <input type="text" name="meow" class="form-control meow-input" placeholder="Meow something to the world...">
+                        <input type="hidden" ng-model="addMeowFormData.auth_kitty_id">
+                        <input type="text" class="form-control meow-input" ng-model="addMeowFormData.meow"
+                               placeholder="Meow something to the world...">
                     </div>
-                    <button type="submit" class="btn btn-default">MEOW!</button>
+                    <button type="submit" class="btn btn-default" ng-click="addMeow()">MEOW!</button>
                 </form>
             </div>
         </div>
 
     </nav>
-    <div class="content" ng-if="!kitty._id" >
+    <div class="content" ng-if="!auth_kitty._id" >
         <div class="jumbotron text-center">
             <h1>Kitty Talk</h1>
             beta testing
@@ -63,25 +65,27 @@
         </div>
     </div>
 
-    <div class="content" ng-if="kitty._id" >
+    <div class="content" ng-if="auth_kitty._id" >
         <div class="row">
             <div class="kt-kitty-profile-container col-md-4">
                 <div class="kt-kitty-profile col-md-12 well">
                     <h4>Profile {{kitty._id}}</h4>
-                    <img src="images/{{kitty.image}}" class="img-responsive">
+                    <img src="images/{{kitty.image}}" class="img-responsive kt-brand">
                 </div>
                 <div class="kt-kitty-crew col-md-12 well">
                     <h4>CREW</h4>
                     <div data-ng-repeat="crew_kitty in crew" class="kt-kitty-list-container row">
                         <div class="col-md-2">
-                            <img src="images/{{crew_kitty.image}}" class="img-responsive kt-action" ng-click="viewKitty(crew_kitty._id)">
+                            <img src="images/{{crew_kitty.image}}" class="img-responsive kt-action  kt-brand"
+                                 ng-click="viewKitty(crew_kitty._id)">
                         </div>
                         <div class="col-md-8">
                             {{crew_kitty._id}}
                         </div>
                         <div class="col-md-2 pull-right">
                                 <span class="kt-action glyphicon glyphicon-minus sign" aria-hidden="true"
-                                      title="Remove kitty from your crew" ng-click="removeKittyFromCrew(crew_kitty._id)"></span>
+                                      title="Remove kitty from your crew"
+                                      ng-click="removeKittyFromCrew(crew_kitty._id)"></span>
                         </div>
                     </div>
                 </div>
@@ -89,7 +93,8 @@
                     <h4>All kitties</h4>
                     <div data-ng-repeat="all_kitty in kitties" class="kt-kitty-list-container row">
                         <div class="col-md-2">
-                            <img src="images/{{all_kitty.image}}" class="img-responsive kt-action" ng-click="viewKitty(all_kitty._id)">
+                            <img src="images/{{all_kitty.image}}" class="img-responsive kt-action kt-brand"
+                                 ng-click="viewKitty(all_kitty._id)">
                         </div>
                         <div class="col-md-8">
                             {{all_kitty._id}}
@@ -106,7 +111,17 @@
                 <div class="kt-meows-container col-md-12 well">
                     <h3>MEOWS</h3>
                     <div data-ng-repeat="meow in meows">
-                        All meows
+                        <div class="col-md-12 kt-meow {{ (meow.kitty == auth_kitty._id) ? 'auth-kitty' : ''}}">
+                            <div class="col-md-10">
+                                [ {{meow.date | date:'MM/dd/yyyy HH:mm'}} ]<br>
+                                <strong>{{meow.text}}</strong>
+                            </div>
+                            <div class="col-md-2 pull-right">
+                                <img src="images/{{meow.kitty_info.image}}" class="img-responsive kt-action  kt-brand"
+                                     ng-click="viewKitty(meow.kitty_info._id)">
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

@@ -57,7 +57,6 @@ var Kitties = ({
                     );
                 },
                 function(callback){
-                    console.log('resize');
                     //Resize the image to a sensible size
                     easyimg.resize({
                         width: 200,
@@ -80,16 +79,13 @@ var Kitties = ({
                     newKitty.save(function(err, doc) {
                         kitty_id = doc._id;
                         req.kittySession.auth_kitty = kitty_id;
-                        console.log(req.kittySession);
                         return callback();
                     });
                 }
             ],
             function(err){
-                console.log('callback');
                 // If an error occurred somewhere along the way, render the error page.
                 if (err){
-                    console.log('error');
                     return res.json({message : err.message});
                 }
                 // Otherwise render the logged in Kitty page.
@@ -107,7 +103,6 @@ var Kitties = ({
      */
     findKitty : function (req, res) {
         var kitty_id = req.params.id;
-        console.log('find kitty from request : ' + kitty_id);
         return Kitties.findKittyById(req, res, kitty_id);
     },
     /**
@@ -120,7 +115,6 @@ var Kitties = ({
      * @returns {*}
      */
     findKittyById : function (req, res, kitty_id) {
-        console.log('find kitty by id : ' + kitty_id);
         KittySchema.findById(kitty_id, function (err, kitty) {
             if(err) {
                 return res.json({'ERROR': err});
@@ -167,16 +161,13 @@ var Kitties = ({
         var crew_kitty_id = req.params.id;
         KittySchema.findById(auth_kitty_id, function (err, kitty) {
             if(err) {
-                console.log('error');
                 return res.json({'ERROR': err});
             }
             kitty.crew.push(crew_kitty_id);
             kitty.save(function(err) {
                 if (err){
-                    console.log('error');
                     return res.json({message : err.message});
                 }
-                console.log(kitty.crew);
                 return Kitties.findKittyById(req, res, auth_kitty_id);
             });
         });
@@ -196,16 +187,13 @@ var Kitties = ({
         var crew_kitty_id = req.params.id;
         KittySchema.findById(auth_kitty_id, function (err, kitty) {
             if(err) {
-                console.log('error');
                 return res.json({'ERROR': err});
             }
             kitty.crew.remove(crew_kitty_id);
             kitty.save(function(err) {
                 if (err){
-                    console.log('error');
                     return res.json({message : err.message});
                 }
-                console.log(kitty.crew);
                 return Kitties.findKittyById(req, res, auth_kitty_id);
             });
         });
