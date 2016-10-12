@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "async": "^1.4.2",
+    "body-parser": "^1.15.2",
     "busboy": "^0.2.9",
     "client-sessions": "^0.7.0",
     "connect-busboy": "0.0.2",
